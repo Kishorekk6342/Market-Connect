@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+    header {
+      background-color: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+    }
+    
+    .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #2c3e50;
+            padding: 15px 30px;
+            color: #fff;
+        }
+
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #1abc9c;
+        }
+    .container {
+      margin: 2rem auto;
+      padding: 1rem;
+      max-width: 800px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+    }
+    th, td {
+      text-align: left;
+      padding: 1rem;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #2c3e50;
+      color: white;
+    }
+    .total {
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-align: right;
+    }
+    .checkout-button {
+      display: block;
+      width: 96%;
+      background-color: #2c3e50;
+      color: white;
+      border: none;
+      padding: 1rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border-radius: 7px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+    }
+    .checkout-button:hover {
+      background-color: #1abc9c;
+    }
+    .remove-btn {
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .remove-btn:hover {
+      background-color: #c82333;
+    }
+    .footer {
+            text-align: center;
+            padding: 15px 10px;
+            background-color: #2c3e50;
+            color: #fff;
+            font-size: 0.9rem;
+            margin-top: 20px;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+  </style>
+</head>
+<body><header class="header">
+  <div class="logo">Market Connect</div>
+    <h1>Your Shopping Cart</h1>
+    <!-- <p>Review your items before checkout</p> -->
+      
+      <nav>
+          <ul class="nav-links">
+              <li><a href="./home.html">Home</a></li>
+              <li><a href="./feature.html">Features</a></li>
+              <li><a href="./cart.html">Cart</a></li>
+              <li><a href="./contact.html">Contact</a></li>
+              <li><a href="./about.html">About</a></li>
+
+          </ul>
+      </nav>
+  </header>
+  <div class="container">
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="cart-items">
+        <!-- Cart items will be populated dynamically -->
+      </tbody>
+    </table>
+    <div class="total" id="cart-total">
+      Total: ₹0
+    </div>
+    <a href="./payment.html" class="checkout-button">Proceed to Checkout</a>
+  </div>
+  <footer class="footer">
+    &copy; 2024 Market Connect. All Rights Reserved.
+  </footer>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const cartItemsContainer = document.getElementById("cart-items");
+      const cartTotalElement = document.getElementById("cart-total");
+
+      // Retrieve cart data from localStorage
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      // Function to render cart items
+      function renderCart() {
+        cartItemsContainer.innerHTML = ""; // Clear previous content
+        let total = 0;
+
+        cart.forEach((product, index) => {
+          total += parseFloat(product.price.replace("₹", "")) * (product.quantity || 1);
+          const row = document.createElement("tr");
+
+          row.innerHTML = `
+            <td>${product.name}</td>
+            <td>${product.price}</td>
+            <td>${product.quantity || 1} kg</td>
+            <td>
+              <button class="remove-btn" data-index="${index}">Remove</button>
+            </td>
+          `;
+
+          cartItemsContainer.appendChild(row);
+        });
+
+        cartTotalElement.textContent = `Total: ₹${total.toFixed(2)}`;
+      }
+
+      // Event listener for "Remove" buttons
+      cartItemsContainer.addEventListener("click", (event) => {
+        if (event.target.classList.contains("remove-btn")) {
+          const index = event.target.getAttribute("data-index");
+          cart.splice(index, 1); // Remove item from cart array
+          localStorage.setItem("cart", JSON.stringify(cart)); // Update localStorage
+          renderCart(); // Re-render cart
+        }
+      });
+
+      // Initial render
+      renderCart();
+    });
+  </script>
+</body>
+</html>

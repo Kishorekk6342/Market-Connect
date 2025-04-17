@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #2c3e50;
+            padding: 15px 30px;
+            color: #fff;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #1abc9c;
+        }
+
+        /* About Section */
+        .about-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .about-content {
+            font-size: 1rem;
+            text-align: justify;
+            margin-bottom: 20px;
+        }
+
+        .about-highlight {
+            font-weight: bold;
+            color: #1abc9c;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 15px 10px;
+            background-color: #2c3e50;
+            color: #fff;
+            font-size: 0.9rem;
+            margin-top: 20px;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">Market Connect</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="./home.html">Home</a></li>
+                <li><a href="./about.html">About</a></li>
+                <li><a href="./feature.html">Features</a></li>
+                <li><a href="./cart.html">Cart</a></li>
+                <li><a href="./contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- About Section -->
+    <div class="about-container">
+        <h1 class="about-title">About Us</h1>
+        <p class="about-content">
+            Welcome to <span class="about-highlight">Market Connect</span>, your reliable platform for trading and quality shopping. Our mission is to bridge the gap between you and the market, delivering fresh, high-quality products at your convenience. 
+        </p>
+        <p class="about-content">
+            Whether you're looking for fresh produce, innovative features, or seamless user experience, our platform is built with <span class="about-highlight">efficiency</span> and <span class="about-highlight">customer satisfaction</span> in mind. 
+        </p>
+        <p class="about-content">
+            Our team is dedicated to providing a service that reflects quality, innovation, and reliability. With our intuitive platform and transparent approach, we aim to make every interaction with us smooth and rewarding.
+        </p>
+        <p class="about-content">
+            Thank you for choosing <span class="about-highlight">Market Connect</span>. We are excited to serve you better each day!
+        </p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        &copy; 2024 Market Connect. All Rights Reserved.
+    </footer>
+</body>
+</html>

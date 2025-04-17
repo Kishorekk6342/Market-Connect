@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+    .container {
+      margin: 2rem auto;
+      padding: 1rem;
+      max-width: 600px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      margin: 0.5rem 0 0.2rem;
+      font-weight: bold;
+    }
+    input, textarea, select {
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    .button {
+      background-color: #2c3e50;
+      color: white;
+      border: none;
+      padding: 1rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border-radius: 7px;
+      cursor: pointer;
+      text-align: center;
+    }
+    .button:hover {
+      background-color: #1abc9c;
+    }
+    .total {
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-align: right;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Payment & Delivery</h1>
+    <div class="total" id="checkout-total">Total: ₹0</div>
+    <form id="checkout-form">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="address">Delivery Address</label>
+      <textarea id="address" name="address" rows="3" required></textarea>
+
+      <label for="payment-method">Payment Method</label>
+      <select id="payment-method" name="payment-method" required>
+        <option value="credit-card">Credit Card</option>
+        <option value="debit-card">Debit Card</option>
+        <option value="upi">UPI</option>
+        <option value="cash-on-delivery">Cash on Delivery</option>
+      </select>
+
+      <button type="submit" class="button">Place Order</button>
+    </form>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const checkoutTotalElement = document.getElementById("checkout-total");
+      const form = document.getElementById("checkout-form");
+
+      // Retrieve cart total from localStorage
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const total = cart.reduce((sum, item) => sum + parseFloat(item.price.replace("₹", "")) * (item.quantity || 1), 0);
+
+      checkoutTotalElement.textContent = `Total: ₹${total.toFixed(2)}`;
+
+      // Handle form submission
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const name = document.getElementById("name").value;
+        const address = document.getElementById("address").value;
+        const paymentMethod = document.getElementById("payment-method").value;
+
+        alert(`Order placed successfully!\nName: ${name}\nAddress: ${address}\nPayment Method: ${paymentMethod}`);
+        
+        // Clear cart and redirect to home page
+        localStorage.removeItem("cart");
+        window.location.href = "./home.html";
+      });
+    });
+  </script>
+</body>
+</html>
