@@ -7,8 +7,7 @@
 
 body {
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(rgba(0, 255, 213, 0.1), rgba(189, 170, 170, 0.2)),
-        url('./bnk.webp') no-repeat center center/cover;
+   
     color: #333;
     line-height: 1.6;
 }
@@ -43,106 +42,399 @@ body {
 
 .nav-links a:hover {
     color: #1abc9c;
+
 }
 
+
+ /* Chatbot Toggle Button */
+
+  /* Chat Button (position stays same, or move if you want) */
+#chat-toggle {
+    position: fixed;
+    bottom: 25px;
+    right: 25px; /* Slightly more space from right */
+    background-color: #00b894;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 999;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Chatbox */
+  #chatbox {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    bottom: 100px;
+    right: 40px; /* Increased from 20px → 40px */
+    width: 300px;
+    max-width: 95%;
+    height: 440px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    z-index: 999;
+    font-size: 14px; /* 👈 Smaller font */
+  }
+  
+  /* Chat header */
+  #chat-header {
+    background-color: #2d3e50;
+    color: white;
+    padding: 12px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 15px; /* smaller */
+  }
+  
+  /* Messages */
+  #messages {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    background-color: #fff;
+    font-size: 13px; /* 👈 smaller chat text */
+  }
+  
+  .message {
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    max-width: 80%;
+    line-height: 1.4;
+  }
+  
+  /* Bot/User styles */
+  .bot {
+    background-color: #f1f1f1;
+    color: #00796b;
+  }
+  
+  .user {
+    background-color: #e0ffe3;
+    align-self: flex-end;
+    margin-left: auto;
+  }
+  
+  /* Input area */
+  #input-container {
+    display: flex;
+    border-top: 1px solid #ccc;
+    padding: 6px;
+    background-color: #fff;
+  }
+  
+  #user-input {
+    width: calc(100% - 90px);
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 13px;
+    margin-right: 6px;
+  }
+  
+  #send-btn {
+    width: 70px;
+    background-color: #00b894;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  
+  /* Responsive */
+  @media (max-width: 480px) {
+    #chatbox {
+      width: 95%;
+      height: 90%;
+      bottom: 80px;
+      right: 2.5%;
+    }
+  }
+  
+
+
+  
+   
+
 /* Hero Section */
+
+
 .hero {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    padding: 60px 20px;
+    padding: 60px 80px;
     background-color: #ecf0f1;
-    text-align: center;
+    text-align: left;
+    flex-wrap: wrap;
+    gap: 40px; /* spacing between content and image */
+}
+
+.hero-content {
+    max-width: 50%;
+    flex: 1;
 }
 
 .hero-content h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
+    font-size: 3rem;
+    margin-bottom: 20px;
     color: #2c3e50;
 }
 
 .hero-content p {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
+    font-size: 1.25rem;
+    margin-bottom: 30px;
+    color: #34495e;
 }
 
-.cta-button {
-    display: inline-block;
+.hero-content button {
+    padding: 12px 24px;
+    font-size: 1rem;
     background-color: #1abc9c;
     color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-size: 1rem;
-    transition: background-color 0.3s;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.cta-button:hover {
+.hero-content button:hover {
     background-color: #16a085;
 }
 
-.hero-image img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
+.hero-image {
+    max-width: 500px;
+    flex: 1;
 }
 
-/* Product Section */
-header {
-    background-color: #28a745;
-    color: white;
-    text-align: center;
-    padding: 1rem;
+.hero-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    object-fit: cover; /* changed from contain */
 }
+
+
+
 
 .container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
-}
-
-.product-card {
-    background-color: white;
+    max-width: 600px;
+    background: white;
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  }
+  
+  input, button {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0 20px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    padding: 15px;
-    width: 250px;
-}
-
-.product-card img {
-    width: 100%;
-    border-radius: 5px;
-}
-
-.product-name {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin: 10px 0;
-}
-
-.product-price {
-    font-size: 1.1rem;
-    color: #28a745;
-    margin-bottom: 10px;
-}
-
-.buy-button {
-    background-color: #28a745;
+    font-size: 16px;
+  }
+  
+  button {
+    background: #10b981;
     color: white;
     border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
     cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background: #0e9e6e;
+  }
+  
+  .results .card {
+    background: #f9f9f9;
+    padding: 1rem;
+    border-left: 5px solid #10b981;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+  }
+  
+  .highlight {
+    background: #e0f7e9;
+    padding: 1rem;
+    border: 2px dashed #10b981;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+  
+  .info {
+    font-style: italic;
+    margin-bottom: 1rem;
+    color: #555;
+  }
+  
+
+/* Fruits Section */
+/* Fresh Fruits & Vegetables Section */
+.fresh-section {
+  padding: 60px 20px;
+  text-align: center;
+  border-radius: 10px;
+  margin: 30px auto;
+  max-width: 1100px;  /* Keeps section from expanding too much */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);  /* Subtle shadow effect */
 }
 
-.buy-button:hover {
-    background-color: #218838;
+.fresh-section .fresh-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.fresh-section h2 {
+  font-size: 2.5rem;  /* Larger font size for heading */
+  color: #2c3e50;  /* Matches the dark header color */
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.fresh-section p {
+  font-size: 1.2rem;
+  color: #34495e;  /* Slightly darker text for readability */
+  margin-bottom: 30px;
+  font-style: italic;
+}
+
+.fresh-button {
+  padding: 12px 24px;
+  font-size: 1rem;
+  background-color: #10b981;  /* Green color to match the theme */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.fresh-button:hover {
+  background-color: #0e9e6e;  /* Darker green when hovered */
+}
+
+@media (max-width: 768px) {
+  .fresh-section h2 {
+    font-size: 2rem;  /* Adjust heading size for smaller screens */
+  }
+
+  .fresh-section p {
+    font-size: 1rem;  /* Adjust paragraph text for smaller screens */
+  }
+}
+
+/* Styling for the Smart Market Price Checker */
+.smart-checker {
+  background-color: #f0f8ff;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 600px;
+  margin: 20px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.smart-checker h2 {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.smart-checker p {
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.smart-checker .location-choice {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.smart-checker label {
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.smart-checker select,
+.smart-checker button {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #fafafa;
+}
+
+.smart-checker button {
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  border: none;
+}
+
+.smart-checker button:hover {
+  background-color: #45a049;
+}
+
+.results {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.card {
+  background: #fff;
+  padding: 15px;
+  margin: 10px;
+  border-radius: 8px;
+  width: 45%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card strong {
+  font-size: 16px;
+}
+
+
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap; /* makes it responsive */
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.page-info {
+  font-size: 14px;
+  margin: 0 10px;
+}
+
+.page-btn {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.page-btn:hover {
+  background-color: #ddd;
 }
 
 /* Features Section */
@@ -193,6 +485,25 @@ header {
     transform: translateY(-5px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
+
+.cta-button {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #2e7d32; /* Dark green */
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cta-button:hover {
+  background-color: #1b5e20; /* Darker green on hover */
+  transform: translateY(-2px);
+}
+
 
 /* Footer */
 .footer {
