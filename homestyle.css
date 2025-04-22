@@ -282,12 +282,11 @@ body {
 /* Fruits Section */
 /* Fresh Fruits & Vegetables Section */
 .fresh-section {
-  padding: 60px 20px;
+  padding: 20px 20px;
   text-align: center;
   border-radius: 10px;
   margin: 30px auto;
   max-width: 1100px;  /* Keeps section from expanding too much */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);  /* Subtle shadow effect */
 }
 
 .fresh-section .fresh-content {
@@ -297,7 +296,7 @@ body {
 
 .fresh-section h2 {
   font-size: 2.5rem;  /* Larger font size for heading */
-  color: #2c3e50;  /* Matches the dark header color */
+  color: #42b844;  /* Matches the dark header color */
   margin-bottom: 20px;
   font-weight: 600;
 }
@@ -436,6 +435,38 @@ body {
 .page-btn:hover {
   background-color: #ddd;
 }
+.card button {
+  margin-top: 10px;
+  padding: 10px;
+  width: 100%;
+  background-color: #10b981;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.card button:hover {
+  background-color: #0e9e6e;
+}
+.go-to-cart-btn {
+  display: inline-block;
+  margin: 20px 0;
+  padding: 10px 15px;
+  background-color: #2e7d32;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.go-to-cart-btn:hover {
+  background-color: #1e40af;
+}
+
 
 /* Features Section */
 .features {

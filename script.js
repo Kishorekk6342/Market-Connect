@@ -1,146 +1,171 @@
-const apiKey = "579b464db66ec23bdd00000188ee27e2c7b949544c2366566d9fea2b";
-const baseURL = "https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070?format=json&api-key=" + apiKey;
+  const apiKey = "579b464db66ec23bdd00000188ee27e2c7b949544c2366566d9fea2b";
+  const baseURL = "https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070?format=json&api-key=" + apiKey;
 
-const commoditySelect = document.getElementById("commodity");
-const stateSelect = document.getElementById("state");
-const resultsDiv = document.getElementById("results");
-const paginationDiv = document.getElementById("pagination");
+  const commoditySelect = document.getElementById("commodity");
+  const stateSelect = document.getElementById("state");
+  const resultsDiv = document.getElementById("results");
+  const paginationDiv = document.getElementById("pagination");
 
-const locationRadios = document.querySelectorAll('input[name="location-mode"]');
-const manualLocationDiv = document.getElementById("manual-location");
+  const locationRadios = document.querySelectorAll('input[name="location-mode"]');
+  const manualLocationDiv = document.getElementById("manual-location");
 
-let currentPage = 1;
-const resultsPerPage = 5;
-let allResults = [];
+  let currentPage = 1;
+  const resultsPerPage = 5;
+  let allResults = [];
 
-locationRadios.forEach(radio => {
-  radio.addEventListener("change", () => {
-    if (document.querySelector('input[name="location-mode"]:checked').value === "manual") {
-      manualLocationDiv.style.display = "block";
-    } else {
-      manualLocationDiv.style.display = "none";
-    }
-  });
-});
-
-async function populateDropdowns() {
-  const res = await fetch(baseURL + "&limit=1000");
-  const data = await res.json();
-  const commodities = new Set();
-  const states = new Set();
-
-  data.records.forEach(item => {
-    if (item.commodity) commodities.add(item.commodity);
-    if (item.state) states.add(item.state);
+  locationRadios.forEach(radio => {
+    radio.addEventListener("change", () => {
+      if (document.querySelector('input[name="location-mode"]:checked').value === "manual") {
+        manualLocationDiv.style.display = "block";
+      } else {
+        manualLocationDiv.style.display = "none";
+      }
+    });
   });
 
-  commoditySelect.innerHTML = '<option value="">--Select--</option>';
-  Array.from(commodities).sort().forEach(c => {
-    const opt = document.createElement("option");
-    opt.value = c;
-    opt.textContent = c;
-    commoditySelect.appendChild(opt);
-  });
-
-  stateSelect.innerHTML = '<option value="">--Select State--</option>';
-  Array.from(states).sort().forEach(s => {
-    const opt = document.createElement("option");
-    opt.value = s;
-    opt.textContent = s;
-    stateSelect.appendChild(opt);
-  });
-}
-
-function paginateResults() {
-  const start = (currentPage - 1) * resultsPerPage;
-  const end = start + resultsPerPage;
-  const paginatedResults = allResults.slice(start, end);
-
-  resultsDiv.innerHTML = paginatedResults.map(item => `
-    <div class="card">
-      <strong>${item.commodity}</strong><br>
-      Market: ${item.market}, ${item.state}<br>
-      Price: ₹${item.modal_price} / kg
-    </div>
-  `).join('');
-
-  updatePaginationControls();
-}
-
-function updatePaginationControls() {
-  const totalPages = Math.ceil(allResults.length / resultsPerPage);
-  paginationDiv.innerHTML = "";
-
-  if (currentPage > 1) {
-    const prevButton = document.createElement("button");
-    prevButton.innerHTML = "&lt;";
-    prevButton.className = "page-btn";
-    prevButton.onclick = () => {
-      currentPage--;
-      paginateResults();
-    };
-    paginationDiv.appendChild(prevButton);
-  }
-
-  const pageInfo = document.createElement("span");
-  pageInfo.className = "page-info";
-  pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
-  paginationDiv.appendChild(pageInfo);
-
-  if (currentPage < totalPages) {
-    const nextButton = document.createElement("button");
-    nextButton.innerHTML = "&gt;";
-    nextButton.className = "page-btn";
-    nextButton.onclick = () => {
-      currentPage++;
-      paginateResults();
-    };
-    paginationDiv.appendChild(nextButton);
-  }
-}
-
-async function getPrices() {
-  const commodity = commoditySelect.value;
-  if (!commodity) return alert("Please select a fruit/vegetable.");
-
-  let selectedState = "";
-
-  if (document.querySelector('input[name="location-mode"]:checked').value === "auto") {
-    try {
-      const loc = await fetch("https://ipapi.co/json").then(res => res.json());
-      selectedState = loc.region; // may need to normalize state names for consistency
-    } catch {
-      alert("Unable to detect location. Please select it manually.");
-      return;
-    }
-  } else {
-    selectedState = stateSelect.value;
-    if (!selectedState) return alert("Please select a state.");
-  }
-
-  resultsDiv.innerHTML = "Loading...";
-  const url = `${baseURL}&filters[commodity]=${encodeURIComponent(commodity)}&filters[state]=${encodeURIComponent(selectedState)}&limit=100`;
-
-  try {
-    const res = await fetch(url);
+  async function populateDropdowns() {
+    const res = await fetch(baseURL + "&limit=1000");
     const data = await res.json();
+    const commodities = new Set();
+    const states = new Set();
 
-    if (!data.records || data.records.length === 0) {
-      resultsDiv.innerHTML = `<p>No prices found for "${commodity}" in ${selectedState}.</p>`;
-      return;
+    data.records.forEach(item => {
+      if (item.commodity) commodities.add(item.commodity);
+      if (item.state) states.add(item.state);
+    });
+
+    commoditySelect.innerHTML = '<option value="">--Select--</option>';
+    Array.from(commodities).sort().forEach(c => {
+      const opt = document.createElement("option");
+      opt.value = c;
+      opt.textContent = c;
+      commoditySelect.appendChild(opt);
+    });
+
+    stateSelect.innerHTML = '<option value="">--Select State--</option>';
+    Array.from(states).sort().forEach(s => {
+      const opt = document.createElement("option");
+      opt.value = s;
+      opt.textContent = s;
+      stateSelect.appendChild(opt);
+    });
+  }
+
+  function paginateResults() {
+    const start = (currentPage - 1) * resultsPerPage;
+    const end = start + resultsPerPage;
+    const paginatedResults = allResults.slice(start, end);
+  
+    resultsDiv.innerHTML = paginatedResults.map(item => `
+      <div class="card">
+        <strong>${item.commodity}</strong><br>
+        Market: ${item.market}, ${item.state}<br>
+        Price: ₹${item.modal_price} / kg<br>
+        <button onclick='addToCart(${JSON.stringify(JSON.stringify(item))})'>Add to Cart</button>
+      </div>
+    `).join('');
+  
+    updatePaginationControls();
+  }
+  function addToCart(itemStr) {
+    const item = JSON.parse(itemStr);
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  
+    const existingIndex = cart.findIndex(p => p.name === item.commodity && p.market === item.market);
+  
+    if (existingIndex > -1) {
+      cart[existingIndex].quantity += 1;
+    } else {
+      cart.push({
+        name: item.commodity,
+        price: `₹${item.modal_price}`,
+        quantity: 1,
+        market: item.market,
+        state: item.state
+      });
+    }
+  
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert(`${item.commodity} added to cart!`);
+  }
+
+  
+  
+
+  function updatePaginationControls() {
+    const totalPages = Math.ceil(allResults.length / resultsPerPage);
+    paginationDiv.innerHTML = "";
+
+    if (currentPage > 1) {
+      const prevButton = document.createElement("button");
+      prevButton.innerHTML = "&lt;";
+      prevButton.className = "page-btn";
+      prevButton.onclick = () => {
+        currentPage--;
+        paginateResults();
+      };
+      paginationDiv.appendChild(prevButton);
     }
 
-    const sortedPrices = data.records.sort((a, b) => parseFloat(a.modal_price) - parseFloat(b.modal_price));
-    allResults = sortedPrices;
+    const pageInfo = document.createElement("span");
+    pageInfo.className = "page-info";
+    pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+    paginationDiv.appendChild(pageInfo);
 
-    paginateResults(); // Display the first page of results
-  } catch (err) {
-    console.error(err);
-    resultsDiv.innerHTML = "<p>Something went wrong. Try again.</p>";
+    if (currentPage < totalPages) {
+      const nextButton = document.createElement("button");
+      nextButton.innerHTML = "&gt;";
+      nextButton.className = "page-btn";
+      nextButton.onclick = () => {
+        currentPage++;
+        paginateResults();
+      };
+      paginationDiv.appendChild(nextButton);
+    }
   }
-}
 
-window.onload = populateDropdowns;
+  async function getPrices() {
+    const commodity = commoditySelect.value;
+    if (!commodity) return alert("Please select a fruit/vegetable.");
+
+    let selectedState = "";
+
+    if (document.querySelector('input[name="location-mode"]:checked').value === "auto") {
+      try {
+        const loc = await fetch("https://ipapi.co/json").then(res => res.json());
+        selectedState = loc.region; // may need to normalize state names for consistency
+      } catch {
+        alert("Unable to detect location. Please select it manually.");
+        return;
+      }
+    } else {
+      selectedState = stateSelect.value;
+      if (!selectedState) return alert("Please select a state.");
+    }
+
+    resultsDiv.innerHTML = "Loading...";
+    const url = `${baseURL}&filters[commodity]=${encodeURIComponent(commodity)}&filters[state]=${encodeURIComponent(selectedState)}&limit=100`;
+
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+
+      if (!data.records || data.records.length === 0) {
+        resultsDiv.innerHTML = `<p>No prices found for "${commodity}" in ${selectedState}.</p>`;
+        return;
+      }
+
+      const sortedPrices = data.records.sort((a, b) => parseFloat(a.modal_price) - parseFloat(b.modal_price));
+      allResults = sortedPrices;
+
+      paginateResults(); // Display the first page of results
+    } catch (err) {
+      console.error(err);
+      resultsDiv.innerHTML = "<p>Something went wrong. Try again.</p>";
+    }
+  }
+
+  window.onload = populateDropdowns;
 
 
 //<!-- Gemini Chat Script -->

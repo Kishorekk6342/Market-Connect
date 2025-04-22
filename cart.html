@@ -115,6 +115,27 @@
             bottom: 0;
             width: 100%;
         }
+        .go-to-cart-btn {
+  display: inline-block;
+  background-color: #2c3e50;
+  color: white;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.15);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin: 20px auto;
+}
+
+.go-to-cart-btn:hover {
+  background-color: #2e7d32; /* Darker blue on hover */
+  transform: translateY(-2px);
+}
+
   </style>
 </head>
 <body><header class="header">
@@ -151,6 +172,8 @@
       Total: ₹0
     </div>
     <a href="./payment.html" class="checkout-button">Proceed to Checkout</a>
+    <a href="home.html" class="go-to-cart-btn">🛒 Go to Home Page</a>
+
   </div>
   <footer class="footer">
     &copy; 2024 Market Connect. All Rights Reserved.
